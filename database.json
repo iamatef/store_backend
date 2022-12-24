@@ -1,0 +1,18 @@
+{
+
+    "dev":{
+        "driver":"pg",
+        "host":"127.0.0.1",
+        "database":"cart_dev",
+        "user":"full_stack_user",
+        "password":"password123"
+    },
+    "test":{
+        "driver":"pg",
+        "host":"127.0.0.1",
+        "database":"cart_test",
+        "user":"full_stack_user",
+        "password":"password123"
+    }
+
+}
