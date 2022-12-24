@@ -26,8 +26,13 @@ grant all privileges on database cart_test to full_stack_user;
 - Project has been pretified using prettier, linted using ESlint and all jasmine tests passed 
 - Endpoints are updated on the REQUIREMENTS.md file
 - Project has been prettified using prettier 
+
 ![Prettier](https://i.imgur.com/L7dO6qy.png)
+
 - Project was linted using ESLint 
+
 ![Prettier](https://i.imgur.com/eaJmnsv.png)
+
 - Jasmine tests passed
+
 ![Prettier](https://i.imgur.com/VSFs7iZ.png)
