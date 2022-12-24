@@ -16,7 +16,7 @@ usersRouter.route("/:id").get(verifyAuthToken, users.indexByID);
 usersRouter.route("/authenticate").post(users.authenticateUser);
 
 // create new user POST http://localhost:3000/users
-usersRouter.route("/").post(verifyAuthToken, users.createUser);
+usersRouter.route("/").post(users.createUser);
 
 // delete a new user
 usersRouter.route("/:id").delete(verifyAuthToken, users.deleteUser);
