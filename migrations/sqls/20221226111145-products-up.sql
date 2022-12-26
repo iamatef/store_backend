@@ -1,0 +1,1 @@
+Create table products(id serial primary key, name varchar(200) , price float , category bigint references products_categories(id)  );

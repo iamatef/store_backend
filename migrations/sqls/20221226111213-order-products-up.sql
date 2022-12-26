@@ -1,0 +1,1 @@
+create table order_products(oid bigint references orders(id) , pid bigint references products(id) , quantity integer);

@@ -33,8 +33,7 @@ describe("Supertest Endpoints /users", function () {
             password: "AtefPass",
             username: "aya2"
         })
-            .set("Accept", "application/json")
-            .set("Authorization", `Bearer ${token}`);
+            .set("Accept", "application/json");
         const json = JSON.parse(response.text);
         expect(json.id).toEqual(jasmine.any(Number));
         expect(json.username).toEqual("aya2");

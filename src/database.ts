@@ -9,6 +9,7 @@ const {
   DATABASE_USER,
   DATABASE_PASSWORD,
   DATABASE_HOST,
+  DATABASE_PORT,
   DATABASE_NAME_TEST,
   ENV
 } = process.env;
@@ -20,21 +21,24 @@ if (ENV === "DEV") {
     host: DATABASE_HOST,
     database: DATABASE_NAME,
     user: DATABASE_USER,
-    password: DATABASE_PASSWORD
+    password: DATABASE_PASSWORD,
+    port: parseInt(DATABASE_PORT as string)
   });
 } else if (ENV === "TEST") {
   client = new Pool({
     host: DATABASE_HOST,
     database: DATABASE_NAME_TEST,
     user: DATABASE_USER,
-    password: DATABASE_PASSWORD
+    password: DATABASE_PASSWORD,
+    port: parseInt(DATABASE_PORT as string)
   });
 } else {
   client = new Pool({
     host: DATABASE_HOST,
     database: DATABASE_NAME,
     user: DATABASE_USER,
-    password: DATABASE_PASSWORD
+    password: DATABASE_PASSWORD,
+    port: parseInt(DATABASE_PORT as string)
   });
 }
 

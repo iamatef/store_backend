@@ -27,14 +27,15 @@ const pg_1 = require("pg");
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 console.log("ENV is:", process.env.ENV);
-const { DATABASE_NAME, DATABASE_USER, DATABASE_PASSWORD, DATABASE_HOST, DATABASE_NAME_TEST, ENV } = process.env;
+const { DATABASE_NAME, DATABASE_USER, DATABASE_PASSWORD, DATABASE_HOST, DATABASE_PORT, DATABASE_NAME_TEST, ENV } = process.env;
 let client;
 if (ENV === "DEV") {
     client = new pg_1.Pool({
         host: DATABASE_HOST,
         database: DATABASE_NAME,
         user: DATABASE_USER,
-        password: DATABASE_PASSWORD
+        password: DATABASE_PASSWORD,
+        port: parseInt(DATABASE_PORT)
     });
 }
 else if (ENV === "TEST") {
@@ -42,7 +43,8 @@ else if (ENV === "TEST") {
         host: DATABASE_HOST,
         database: DATABASE_NAME_TEST,
         user: DATABASE_USER,
-        password: DATABASE_PASSWORD
+        password: DATABASE_PASSWORD,
+        port: parseInt(DATABASE_PORT)
     });
 }
 else {
@@ -50,7 +52,8 @@ else {
         host: DATABASE_HOST,
         database: DATABASE_NAME,
         user: DATABASE_USER,
-        password: DATABASE_PASSWORD
+        password: DATABASE_PASSWORD,
+        port: parseInt(DATABASE_PORT)
     });
 }
 exports.default = client;

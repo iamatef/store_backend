@@ -15,7 +15,7 @@ usersRouter.route("/:id").get(verifyAuthToken_1.default, users_1.default.indexBy
 // authenticate user by username and password and get a jwt if correct login http://localhost:3000/users/authenticate
 usersRouter.route("/authenticate").post(users_1.default.authenticateUser);
 // create new user POST http://localhost:3000/users
-usersRouter.route("/").post(verifyAuthToken_1.default, users_1.default.createUser);
+usersRouter.route("/").post(users_1.default.createUser);
 // delete a new user
 usersRouter.route("/:id").delete(verifyAuthToken_1.default, users_1.default.deleteUser);
 // update username and password for a specific user by id

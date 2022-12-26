@@ -139,10 +139,83 @@ GET http://localhost:3000/orders/1
 - status of order (active or complete)
 
   
+## Database Scheme 
+### Relations
+                  List of relations
+ Schema |        Name         | Type  |      Owner      
+--------+---------------------+-------+-----------------
+ public | order_products      | table | full_stack_user
+ public | orders              | table | full_stack_user
+ public | products            | table | full_stack_user
+ public | products_categories | table | full_stack_user
+ public | users               | table | full_stack_user
+--------+---------------------+-------+-----------------
 
-
-
+#### users products
+                                     Table "public.users"
+  Column   |          Type          | Collation | Nullable |              Default              
+-----------+------------------------+-----------+----------+-----------------------------------
+ id        | integer                |           | not null | nextval('users_id_seq'::regclass)
+ firstname | character varying(200) |           |          | 
+ lastname  | character varying(200) |           |          | 
+ password  | character varying      |           |          | 
+ username  | character varying(100) |           |          | 
+Indexes:
+    "users_pkey" PRIMARY KEY, btree (id)
+    "users_username_key" UNIQUE CONSTRAINT, btree (username)
+Referenced by:
+    TABLE "orders" CONSTRAINT "orders_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(id)
  
-
-
  
+#### Table order_products  
+
+            Table "public.order_products"
+  Column  |  Type   | Collation | Nullable | Default 
+----------+---------+-----------+----------+---------
+ oid      | bigint  |           |          | 
+ pid      | bigint  |           |          | 
+ quantity | integer |           |          | 
+Foreign-key constraints:
+    "order_products_oid_fkey" FOREIGN KEY (oid) REFERENCES orders(id)
+    "order_products_pid_fkey" FOREIGN KEY (pid) REFERENCES products(id)
+
+#### Table orders
+                                    Table "public.orders"
+ Column  |         Type          | Collation | Nullable |              Default               
+---------+-----------------------+-----------+----------+------------------------------------
+ id      | integer               |           | not null | nextval('orders_id_seq'::regclass)
+ user_id | bigint                |           |          | 
+ status  | character varying(10) |           |          | 
+Indexes:
+    "orders_pkey" PRIMARY KEY, btree (id)
+Foreign-key constraints:
+    "orders_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(id)
+Referenced by:
+    TABLE "order_products" CONSTRAINT "order_products_oid_fkey" FOREIGN KEY (oid) REFERENCES orders(id)
+
+#### Table products
+                                     Table "public.products"
+  Column  |          Type          | Collation | Nullable |               Default                
+----------+------------------------+-----------+----------+--------------------------------------
+ id       | integer                |           | not null | nextval('products_id_seq'::regclass)
+ name     | character varying(200) |           |          | 
+ price    | double precision       |           |          | 
+ category | bigint                 |           |          | 
+Indexes:
+    "products_pkey" PRIMARY KEY, btree (id)
+Foreign-key constraints:
+    "products_category_fkey" FOREIGN KEY (category) REFERENCES products_categories(id)
+Referenced by:
+    TABLE "order_products" CONSTRAINT "order_products_pid_fkey" FOREIGN KEY (pid) REFERENCES products(id)
+
+#### Table products_categories
+
+                                    Table "public.products_categories"
+ Column |          Type          | Collation | Nullable |                     Default                     
+--------+------------------------+-----------+----------+-------------------------------------------------
+ id     | integer                |           | not null | nextval('products_categories_id_seq'::regclass)
+ name   | character varying(150) |           |          | 
+Indexes:
+    "products_categories_pkey" PRIMARY KEY, btree (id)
+Referenced by:
+    TABLE "products" CONSTRAINT "products_category_fkey" FOREIGN KEY (category) REFERENCES products_categories(id)
